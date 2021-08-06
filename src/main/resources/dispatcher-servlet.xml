@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--mvc管理controller-->
+    <context:component-scan base-package="declare.controller"/>
+
+    <!--配套使用，启动mvc注解-->
+    <mvc:annotation-driven/>
+
+    <!--静态资源映射-->
+    <mvc:resources mapping="/css/**" location="WEB-INF/static/css"/>
+    <mvc:resources mapping="/images/**" location="WEB-INF/static/images"/>
+    <mvc:resources mapping="/js/**" location="WEB-INF/static/js"/>
+
+    <!--解决freemarker返回HTML页面中文乱码问题-->
+    <bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="freemarker.properties"/>
+    </bean>
+
+    <!--html视图解析器 必须先配置freemarkerConfig,注意html是没有prefix前缀属性的-->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="freemarkerSettings" ref="freemarkerConfiguration"/>
+        <property name="templateLoaderPath" value="WEB-INF/views/html"/>
+    </bean>
+    <bean id="htmlViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="suffix" value=".html"/>
+        <!--InternalResourceViewResolver必须总是赋予最低的优先级（最大的order值），因为不管返回什么视图名称，它都将解析视图。如果它的优先级高于其它解析器的优先级的话，它将使得其它具有较低优先级的解析器没有机会解析视图-->
+        <property name="order" value="0"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+    </bean>
+
+    <!--配置jsp逻辑视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/views/jsp"/>
+        <property name="suffix" value=".jsp"/>
+        <!--优先级-->
+        <property name="order" value="2"/>
+    </bean>
+</beans>
