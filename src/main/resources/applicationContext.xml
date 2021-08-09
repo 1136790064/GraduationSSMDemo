@@ -8,7 +8,7 @@
        https://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--引入数据库配置文件-->
-    <context:property-placeholder location="db.properties"/>
+    <context:property-placeholder location="classpath:db.properties"/>
 
     <!--指定注解扫描路径，排除controller-->
     <context:component-scan base-package="declare">

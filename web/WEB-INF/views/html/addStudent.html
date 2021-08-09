@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加学生</title>
+    <script src="../js/jquery-3.6.0.js"></script>
+</head>
+<body>
+<h2>添加学生</h2>
+<label>学&nbsp;&nbsp;号:</label>
+<input type="text" id="studentId">
+<br>
+<br>
+<label>姓&nbsp;&nbsp;名:</label>
+<input type="text" id="studentName">
+<br>
+<br>
+
+<label>密&nbsp;&nbsp;码:</label>
+<input type="text" id="studentPassword">
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="submit" onclick="addStudent()">
+</body>
+<script type="text/javascript">
+    function addStudent() {
+        var studentId = $('#studentId').val();
+        var studentName = $('#studentName').val();
+        var studentPassword = $('#studentPassword').val();
+
+        $.ajax({
+            url: "../ADS"
+            , type: "post"
+            , data: {
+                "studentId": studentId
+                , "studentName": studentName
+                , "studentPassword": studentPassword
+                ,"addIdentity":"student"
+
+            }
+            , success: function (res) {
+                switch (res) {
+                    case "success":
+                        alert('添加成功');
+                        break;
+                    case "error":
+                        alert('添加失败，该学生已存在！');
+                        break;
+                }
+
+            }
+            , error: function (res) {
+
+                alert('添加失败');
+            }
+
+        })
+
+    }
+</script>
+</html>

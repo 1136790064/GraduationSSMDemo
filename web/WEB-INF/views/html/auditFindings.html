@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>审核结果</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../js/jquery-3.6.0.js"></script>
+</head>
+<body>
+<label class="layui-form-label" for="title"></label>
+<div class="layui-form-item">
+    <div class="layui-input-inline">
+        <input type="text" id="title" lay-verify="required" placeholder="请输入关键字" autocomplete="off" class="layui-input">
+    </div>
+    <button onclick="selectTitle()" class="layui-btn layui-btn-primary layui-border-blue">按项目名查询</button>
+</div>
+
+<table id="demo" lay-filter="test"></table>
+<script src="../layui/layui.js" charset="utf-8"></script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="auditFinding">查看审核结果</a>
+</script>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        table.render({
+            elem: '#demo'
+            , height: 'full-20'
+            , url: '../SDS'
+            , page: true //开启分页
+            , method: 'post'
+            , where: {selectIdentity: 'project'}
+            , id: 'projectList'
+            , cols: [
+                [
+                    {field: 'number', width: 100, title: '项目编号'}
+                    , {field: 'entryName', width: 200, title: '项目名称', sort: true}
+                    , {field: 'subject', width: 180, title: '所属学科'}
+                    , {field: 'projectApplicant', width: 150, title: '申请人', sort: true}
+                    , {field: 'college', width: 180, title: '学院'}
+                    , {field: 'teacher', width: 180, title: '指导老师', sort: true}
+                    , {field: 'date', width: 150, title: '申请日期', sort: true}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+
+                ]
+            ]
+
+        });
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            // console.log(obj.data);
+            if (obj.event === 'auditFinding') {
+                layer.open({
+                    type: 2
+                    , title: '审核结果'
+                    , content: 'selectAudit.html'
+                    , maxmin: true
+                    , area: ['880px', '200px']
+                    , btn: ['确定', '取消']
+
+                    , success: function (layero, index) {
+                        var body = layer.getChildFrame('body', index);
+                        body.find('.number').val(data.number);
+                    }
+                })
+            }
+        });
+    });
+</script>
+<script>
+    function selectTitle() {
+        var SelectTitle = $('#title').val();
+        var table = layui.table;
+        table.reload('projectList', {
+            url:'../SDS'
+            ,where:{
+                SelectTitle:SelectTitle
+                ,selectIdentity:'selectProjectTitle'
+            }
+        });
+    }
+</script>
+</body>
+</html>

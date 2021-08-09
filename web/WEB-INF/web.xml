@@ -4,6 +4,10 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
           http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <display-name>web-ssm</display-name>
+
+
     <!--配置spring-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -11,8 +15,14 @@
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
 
+    <!--spring监听器-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!--防止spring内存溢出监听器，比如quartz-->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
     </listener>
 
     <!--配置springmvc-->
@@ -25,9 +35,11 @@
             <param-value>classpath:dispatcher-servlet.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported>
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
 </web-app>

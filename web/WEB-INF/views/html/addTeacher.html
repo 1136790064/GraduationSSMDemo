@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加教师</title>
+    <script src="../js/jquery-3.6.0.js"></script>
+</head>
+<body>
+<h2>添加教师</h2>
+<label>工&nbsp;&nbsp;号:</label>
+<input type="text" id="teacherId">
+<br>
+<br>
+<label>姓&nbsp;&nbsp;名:</label>
+<input type="text" id="teacherName">
+<br>
+<br>
+
+<label>密&nbsp;&nbsp;码:</label>
+<input type="text" id="teacherPassword">
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="submit" onclick="addTeacher()">
+</body>
+<script type="text/javascript">
+    function addTeacher() {
+        var teacherId = $('#teacherId').val();
+        var teacherName = $('#teacherName').val();
+        var teacherPassword = $('#teacherPassword').val();
+
+        $.ajax({
+            url: "../ADS"
+            , type: "post"
+            , data: {
+                "teacherId": teacherId
+                , "teacherName": teacherName
+                , "teacherPassword": teacherPassword
+                ,"addIdentity":"teacher"
+
+            }
+            , success: function (res) {
+                switch (res) {
+                    case "success":
+                        alert('添加成功');
+                        break;
+                    case "error":
+                        alert('添加失败，该教师已存在！');
+                        break;
+                }
+
+            }
+            , error: function (res) {
+
+                alert('添加失败');
+            }
+
+        })
+
+    }
+</script>
+</html>

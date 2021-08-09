@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>教师列表</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../js/jquery-3.6.0.js"></script>
+</head>
+<body>
+
+
+<table id="demo" lay-filter="test"></table>
+<script src="../layui/layui.js" charset="utf-8"></script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        table.render({
+            elem: '#demo'
+            , height: 'full-10'
+            , url: '../SDS'
+            , page: true //开启分页
+            , method: 'post'
+            , where: {selectIdentity: 'teacher'}
+            , cols: [
+                [
+                     {field: 'teacherId', width: 80, title: '教师id', sort: true}
+                    ,{field: 'name', width: 80, title: '姓名', sort: true}
+                    , {field: 'sex', width: 80, title: '性别', sort: true}
+                    , {field: 'college', width: 180, title: '学院'}
+                    , {field: 'title', width: 100, title: '职称'}
+                    , {field: 'subject', width: 180, title: '所在学科',}
+                    , {field: 'salaryNumber', width: 150, title: '工资号', sort: true}
+                    , {field: 'phone', width: 140, title: '手机'}
+                    , {field: 'EMail', width: 180, title: '邮箱', sort: true}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+
+                ]
+            ]
+
+        });
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            //console.log(obj)
+            if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                //实现编辑的功能
+                layer.open({
+                    type: 2
+                    , title: '编辑信息'
+                    , content: 'editTeacher.html'
+                    , maxmin: true
+                    , area: ['500px', '450px']
+                    , btn: ['确定', '取消']
+                    , yes: function (index, layero) {
+                        //回调的数值
+                        var teacherId = $(layero).find('iframe')[0].contentWindow.teacherId.value;
+                        var teacherName = $(layero).find('iframe')[0].contentWindow.document.getElementById('teacherName').value;
+                        var teacherSex = $(layero).find('iframe')[0].contentWindow.document.getElementById('teacherSex').value;
+                        var teacherCollege = $(layero).find('iframe')[0].contentWindow.document.getElementById('teacherCollege').value;
+                        var teacherTitle = $(layero).find('iframe')[0].contentWindow.document.getElementById('teacherTitle').value;
+                        var teacherSubject = $(layero).find('iframe')[0].contentWindow.document.getElementById('teacherSubject').value;
+                        var teacherSN = $(layero).find('iframe')[0].contentWindow.document.getElementById('teacherSN').value;
+                        var teacherPhone = $(layero).find('iframe')[0].contentWindow.document.getElementById('teacherPhone').value;
+                        var teacherEMail = $(layero).find('iframe')[0].contentWindow.document.getElementById('teacherEMail').value;
+
+                        //同步数据表格中的数据
+                        obj.update({
+                            'teacherId': teacherId,
+                            'name': teacherName,
+                            'sex': teacherSex,
+                            'college': teacherCollege,
+                            'title': teacherTitle,
+                            'subject': teacherSubject,
+                            'salaryNumber': teacherSN,
+                            'phone': teacherPhone,
+                            'EMail': teacherEMail
+                        })
+                        $.ajax({
+                            url: '../EDS?teacherId=' + teacherId +
+                                '&teacherName=' + teacherName +
+                                '&teacherSex=' + teacherSex +
+                                '&teacherCollege=' + teacherCollege +
+                                '&teacherTitle=' + teacherTitle +
+                                '&teacherSubject=' + teacherSubject +
+                                '&teacherSN=' + teacherSN +
+                                '&teacherPhone=' + teacherPhone +
+                                '&teacherEMail=' + teacherEMail +
+                                '&EditIdentity=teacher',
+                            type: 'post',
+                            contentType: 'application/json;charset=utf-8',
+                            dataType: 'text',
+                            data: {
+                                'teacherId': teacherId,
+                                'name': teacherName,
+                                'sex': teacherSex,
+                                'college': teacherCollege,
+                                'title': teacherTitle,
+                                'subject': teacherSubject,
+                                'salaryNumber': teacherSN,
+                                'phone': teacherPhone,
+                                'EMail': teacherEMail
+                            },
+                            success: function (res) {
+                                layer.msg('编辑成功!');
+                            },
+                            error: function (res) {
+                                layer.msg('编辑失败!');
+                            }
+                        })
+                        layer.close(index);
+                    }
+                    , success: function (layero, index) {
+                        var div = layero.find('iframe').contents().find('#userTeacher')
+                        var body = layer.getChildFrame('body', index);
+                        var iframeWindow = window['layui-layer-iframe' + index]
+                        body.find('#teacherId').val(data.teacherId);
+                        body.find('#teacherName').val(data.name);
+                        body.find('#teacherSex').val(data.sex);
+                        body.find('#teacherCollege').val(data.college);
+                        body.find('#teacherTitle').val(data.title);
+                        body.find('#teacherSubject').val(data.subject);
+                        body.find('#teacherSN').val(data.salaryNumber);
+                        body.find('#teacherPhone').val(data.phone);
+                        body.find('#teacherEMail').val(data.EMail);
+                    }
+                })
+            }
+        });
+    });
+</script>
+</body>
+</html>

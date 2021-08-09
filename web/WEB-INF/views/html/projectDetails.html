@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>项目详细信息</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../js/jquery-3.6.0.js"></script>
+</head>
+<body>
+<input type="hidden" class="number" name="number">
+<div>
+    <table id="demo1" lay-filter="test1"></table>
+</div>
+<div>
+    <table id="demo2" lay-filter="test2"></table>
+</div>
+
+<div>
+    <table id="demo3" lay-filter="test3"></table>
+</div>
+<script src="../layui/layui.js" charset="utf-8"></script>
+<!--<script type="text/html" id="barDemo">-->
+<!--    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
+<!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+<!--</script>-->
+<script>
+    layui.use('table', function () {
+        var number = $("input:hidden[name='number']").val();
+        var table = layui.table;
+        table.render({
+                elem: '#demo1'
+                , height: '150'
+                , url: '../SDS'
+                , method: 'post'
+                , where: {selectIdentity: 'projectDetail', number: number}
+                , cols: [
+                    [
+                        {field: 'number', width: 100, title: '项目编号'}
+                        , {field: 'entryName', width: 200, title: '项目名称', sort: true}
+                        , {field: 'subject', width: 180, title: '所属学科'}
+                        , {field: 'projectApplicant', width: 150, title: '申请人', sort: true}
+                        , {field: 'college', width: 180, title: '学院'}
+                        , {field: 'teacherId', width: 180, title: '指导老师工号'}
+                        , {field: 'teacher', width: 180, title: '指导老师', sort: true}
+                        , {field: 'date', width: 150, title: '申请日期', sort: true}
+                        // , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+
+                    ]
+                ]
+            }
+        );
+
+        table.render({
+                elem: '#demo2'
+                , height: '150'
+                , url: '../SDS'
+                , method: 'post'
+                , where: {selectIdentity: 'projectDetail', number: number}
+                , cols: [
+                    [
+                        {field: 'number', width: 100, title: '项目编号'}
+                        , {field: 'entryName', width: 200, title: '项目名称', sort: true}
+                        , {field: 'applicationFunds', width: 150, title: '申请经费', sort: true}
+                        , {field: 'appropriations', width: 150, title: '批准经费', sort: true}
+                        , {field: 'researchCycle', width: 150, title: '研究周期', sort: true}
+                        , {field: 'briefIntroduction', width: 150, title: '项目简介', sort: true}
+                    ]
+                ]
+
+            }
+        );
+        table.render({
+                elem: '#demo3'
+                , height: '150'
+                , url: '../SDS'
+                , method: 'post'
+                , where: {selectIdentity: 'projectMember', number: number}
+                , cols: [
+                    [
+                        {field: 'sno', width: 200, title: '学号', sort: true}
+                        , {field: 'name', width: 150, title: '姓名', sort: true}
+                        , {field: 'sex', width: 150, title: '性别', sort: true}
+                        , {field: 'college', width: 150, title: '学院', sort: true}
+                        , {field: 'phone', width: 150, title: '电话', sort: true}
+                        , {field: 'EMail', width: 150, title: '邮箱', sort: true}
+                    ]
+                ]
+
+            }
+        );
+        // //监听行工具事件
+        // table.on('tool(test1)', function (obj) {
+        //     var data = obj.data;
+        //     //console.log(obj)
+        //     if (obj.event === 'del') {
+        //         layer.confirm('真的删除行么', function (index) {
+        //             obj.del();
+        //             layer.close(index);
+        //         });
+        //     } else if (obj.event === 'edit') {
+        //         //实现编辑的功能
+        //         layer.open({
+        //             type: 2
+        //             , title: '编辑信息'
+        //             , content: 'editStudent.html'
+        //             , maxmin: true
+        //             , area: ['500px', '450px']
+        //             , btn: ['确定', '取消']
+        //             , yes: function (index, layero) {
+        //                 //回调的数值
+        //                 var studentId = $(layero).find('iframe')[0].contentWindow.studentId.value;
+        //                 var studentName = $(layero).find('iframe')[0].contentWindow.document.getElementById('studentName').value;
+        //                 var studentSno = $(layero).find('iframe')[0].contentWindow.document.getElementById('studentSno').value;
+        //                 var studentSex = $(layero).find('iframe')[0].contentWindow.document.getElementById('studentSex').value;
+        //                 var studentCollege = $(layero).find('iframe')[0].contentWindow.document.getElementById('studentCollege').value;
+        //                 var studentIdCard = $(layero).find('iframe')[0].contentWindow.document.getElementById('studentIdCard').value;
+        //                 var studentMajor = $(layero).find('iframe')[0].contentWindow.document.getElementById('studentMajor').value;
+        //                 var studentEY = $(layero).find('iframe')[0].contentWindow.document.getElementById('studentEY').value;
+        //                 var studentPhone = $(layero).find('iframe')[0].contentWindow.document.getElementById('studentPhone').value;
+        //                 var studentEMail = $(layero).find('iframe')[0].contentWindow.document.getElementById('studentEMail').value;
+        //
+        //                 //同步数据表格中的数据
+        //                 obj.update({
+        //                     'studentId': studentId,
+        //                     'name': studentName,
+        //                     'sno': studentSno,
+        //                     'sex': studentSex,
+        //                     'college': studentCollege,
+        //                     'idCard': studentIdCard,
+        //                     'major': studentMajor,
+        //                     'enrollmentYear': studentEY,
+        //                     'phone': studentPhone,
+        //                     'EMail': studentEMail
+        //                 })
+        //                 $.ajax({
+        //                     url: '../EDS?studentId=' + studentId +
+        //                         '&studentName=' + studentName +
+        //                         '&studentSno=' + studentSno +
+        //                         '&studentSex=' + studentSex +
+        //                         '&studentCollege=' + studentCollege +
+        //                         '&studentIdCard=' + studentIdCard +
+        //                         '&studentMajor=' + studentMajor +
+        //                         '&studentEY=' + studentEY +
+        //                         '&studentPhone=' + studentPhone +
+        //                         '&studentEMail=' + studentEMail +
+        //                         '&EditIdentity=student',
+        //                     type: 'post',
+        //                     contentType: 'application/json;charset=utf-8',
+        //                     dataType: 'text',
+        //                     data: {
+        //                         'studentId': studentId,
+        //                         'name': studentName,
+        //                         'sno': studentSno,
+        //                         'sex': studentSex,
+        //                         'college': studentCollege,
+        //                         'idCard': studentIdCard,
+        //                         'major': studentMajor,
+        //                         'enrollmentYear': studentEY,
+        //                         'phone': studentPhone,
+        //                         'EMail': studentEMail
+        //                     },
+        //                     success: function (res) {
+        //                         layer.msg('编辑成功!');
+        //                     },
+        //                     error: function (res) {
+        //                         layer.msg('编辑失败!');
+        //                     }
+        //                 })
+        //                 layer.close(index);
+        //             }
+        //             , success: function (layero, index) {
+        //                 var div = layero.find('iframe').contents().find('#userStudent')
+        //                 var body = layer.getChildFrame('body', index);
+        //                 var iframeWindow = window['layui-layer-iframe' + index]
+        //                 body.find('#studentId').val(data.studentId);
+        //                 body.find('#studentName').val(data.name);
+        //                 body.find('#studentSno').val(data.sno);
+        //                 body.find('#studentSex').val(data.sex);
+        //                 body.find('#studentCollege').val(data.college);
+        //                 body.find('#studentIdCard').val(data.idCard);
+        //                 body.find('#studentMajor').val(data.major);
+        //                 body.find('#studentEY').val(data.enrollmentYear);
+        //                 body.find('#studentPhone').val(data.phone);
+        //                 body.find('#studentEMail').val(data.EMail);
+        //             }
+        //         })
+        //     }
+        // });
+    });
+</script>
+</body>
+</html>

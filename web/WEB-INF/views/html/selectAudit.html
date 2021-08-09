@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>项目详细信息</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../js/jquery-3.6.0.js"></script>
+</head>
+<body>
+<input type="hidden" class="number" name="number">
+<div>
+    <table id="demo" lay-filter="test"></table>
+</div>
+<script src="../layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('table', function () {
+        var number = $("input:hidden[name='number']").val();
+        console.log(number);
+        var table = layui.table;
+        table.render({
+                elem: '#demo'
+                , height: '200'
+                , url: '../SDS'
+                , method: 'post'
+                , where: {selectIdentity: 'selectAudit', number: number}
+                , cols: [
+                    [
+                        {field: 'projectId', width: 100, title: '项目编号'}
+                        , {field: 'teacherExamine', width: 200, title: '教师审核结果', sort: true}
+                        , {field: 'teacherRemark', width: 180, title: '教师建议或理由'}
+                        , {field: 'schoolExamine', width: 200, title: '学校审核结果', sort: true}
+                        , {field: 'schoolRemark', width: 180, title: '学校建议或理由'}
+                        // , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                    ]
+                ]
+            }
+        );
+    });
+</script>
+</body>
+</html>

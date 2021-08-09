@@ -1,0 +1,183 @@
+body, div, form, img, ul, ol, li, dl, dt, dd, form, p {
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+    list-style: none outside none;
+    text-decoration: none;
+}
+
+/*------------------------------*/
+/*登录界面样式*/
+#backdrop {
+    background-color: #7df89c;
+    width: 1344px;
+    height: 1344px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #163aee;
+    text-align: center;
+    padding: 5px;
+}
+
+#record {
+    background-color: rgba(100, 100, 100, 0.3);
+    border-radius: 20px 20px 20px 20px;
+    height: 260px;
+    width: 400px;
+    padding: 50px 50px 50px 50px;
+    margin: 0 auto;
+}
+
+#footer {
+    background-color: #042165;
+    width: 1344px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    color: white;
+    clear: both;
+    text-align: center;
+    padding: 5px;
+}
+
+
+.cities {
+    border-radius: 20px 20px 20px 20px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    line-height: 50%;
+    padding: 20px;
+}
+
+/*按钮样式*/
+.Button_style {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    padding: 6px 20px;
+    margin: 0 20px 0 20px;
+    cursor: pointer;
+    border: 1px solid #bbb;
+    overflow: visible;
+    font: bold 13px arial, helvetica, sans-serif;
+    text-decoration: none;
+    white-space: nowrap;
+    color: #555;
+
+    background-color: #ddd;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 1)), to(rgba(255, 255, 255, 0)));
+    /*background-image: -webkit-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));*/
+    /*background-image: -moz-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));*/
+    /*background-image: -ms-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));*/
+    /*background-image: -o-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));*/
+    background-image: linear-gradient(top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+
+    /*-webkit-transition: background-color .2s ease-out;*/
+    /*-moz-transition: background-color .2s ease-out;*/
+    /*-o-transition: background-color .2s ease-out;*/
+    transition: background-color .2s ease-out;
+    background-clip: padding-box; /* Fix bleeding */
+    /*-moz-border-radius: 3px;*/
+    /*-webkit-border-radius: 3px;*/
+    border-radius: 3px;
+    /*-moz-box-shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 2px 2px -1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .3) inset;*/
+    /*-webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 2px 2px -1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .3) inset;*/
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 2px 2px -1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .3) inset;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .9);
+
+    /*-webkit-touch-callout: none;*/
+    /*-webkit-user-select: none;*/
+    /*-moz-user-select: none;*/
+    /*-ms-user-select: none;*/
+    user-select: none;
+}
+
+/*------------------------------*/
+/*分隔线样式*/
+hr {
+    width: 250px;
+    opacity: 0.5;
+}
+
+/*index界面导航条样式*/
+nav {
+    float: left;
+    width: 100%;
+    height: 60px;
+}
+
+.logo {
+    float: left;
+    width: 60px;
+    height: 60px;
+}
+
+nav ul {
+    float: right;
+    width: 100%;
+    height: 60px;
+    background-color: #0d62f6;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul p {
+    float: right;
+    color: white;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    /*float 属性定义元素在哪个方向浮动*/
+    float: left;
+    /*padding 简写属性在一个声明中设置所有内边距属性*/
+    padding: 20px 40px;
+    /*font-size  字体尺寸*/
+    font-size: 16px;
+    /*text-align 属性规定元素中的文本的水平对齐方式*/
+    text-align: center;
+    /*text-decoration 属性规定添加到文本的修饰 none:默认。定义标准的文本*/
+    text-decoration: none;
+    /*color 属性规定文本的颜色 */
+    color: white;
+    /*font-family 规定元素的字体系列*/
+    font-family: Tahoma, serif;
+    /*outline 简写属性在一个声明中设置所有的轮廓属性*/
+    outline: none;
+}
+
+nav li a:hover {
+    background-color: #32a4fc;
+}
+
+.main {
+    /*width 宽度
+     */
+    width: 100%;
+    /*
+    height 高度
+     */
+    height: 80%;
+    /*padding 简写属性在一个声明中设置所有内边距属性*/
+    padding: 20px 40px;
+    /*font-size  字体尺寸*/
+    font-size: 16px;
+    /*text-align 属性规定元素中的文本的水平对齐方式*/
+    text-align: center;
+    /*text-decoration 属性规定添加到文本的修饰 none:默认。定义标准的文本*/
+    text-decoration: none;
+    /*color 属性规定文本的颜色 */
+    color: white;
+    /*font-family 规定元素的字体系列*/
+    font-family: Tahoma, serif;
+    /*outline 简写属性在一个声明中设置所有的轮廓属性*/
+    outline: none;
+}
+
+/*------------------------------*/

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>管理员列表</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../js/jquery-3.6.0.js"></script>
+</head>
+<body>
+
+<table id="demo" lay-filter="test"></table>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script src="../layui/layui.js"></script>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            , url: '../SDS'
+            , height: 'full-10'
+            , method: 'post'
+            , page: true //开启分页
+            , where: {selectIdentity: 'administrators'}
+            , cols: [[ //表头
+                {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
+                , {field: 'name', title: '用户名', width: 120}
+                , {field: 'password', title: '密码', width: 80, sort: true}
+                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+            ]]
+
+        });
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            //console.log(obj)
+            if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                //实现编辑的功能
+                layer.open({
+                    type: 2
+                    , title: '编辑信息'
+                    , content: 'editAdm.html'
+                    , maxmin: true
+                    , area: ['500px', '450px']
+                    , btn: ['确定', '取消']
+                    , yes: function (index, layero) {
+                        //回调的数值
+                        var admId = $(layero).find('iframe')[0].contentWindow.admId.value;
+                        var admName = $(layero).find('iframe')[0].contentWindow.document.getElementById('admName').value;
+                        var admPassword = $(layero).find('iframe')[0].contentWindow.document.getElementById('admPassword').value;
+
+                        //同步数据表格中的数据
+                        obj.update({
+                            'id': admId,
+                            'name': admName,
+                            'password': admPassword
+                        })
+                        $.ajax({
+                            url: '../EDS?admId='+admId+
+                                '&admName=' + admName +
+                                '&admPassword='+admPassword
+                            +'&EditIdentity=administrators',
+                            type: 'post',
+                            contentType: 'application/json;charset=utf-8',
+                            dataType: 'text',
+                            data: {
+                                'id': admId,
+                                'name': admName,
+                                'password': admPassword
+                            },
+                            success:function (res){
+                                layer.msg('编辑成功!');
+                            },
+                            error:function (res){
+                                layer.msg('编辑失败!');
+                            }
+                        })
+                        layer.close(index);
+                    }
+                    ,success:function (layero,index){
+                        var div = layero.find('iframe').contents().find('#userAdmin')
+                        var body = layer.getChildFrame('body',index);
+                        var iframeWindow = window['layui-layer-iframe'+index]
+                        body.find('#admId').val(data.id);
+                        body.find('#admName').val(data.name);
+                        body.find('#admPassword').val(data.password);
+
+                    }
+
+                })
+            }
+        });
+    });
+</script>
+</body>
+</html>

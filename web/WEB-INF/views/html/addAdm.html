@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加管理员</title>
+    <script src="../js/jquery-3.6.0.js"></script>
+</head>
+<body>
+<h2>添加管理员</h2>
+
+<label>姓&nbsp;&nbsp;名:</label>
+<input type="text" id="admName">
+<br>
+<br>
+
+<label>密&nbsp;&nbsp;码:</label>
+<input type="text" id="admPassword">
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="submit" onclick="addAdm()">
+</body>
+<script type="text/javascript">
+    function addAdm() {
+        var admName = $('#admName').val();
+        var admPassword = $('#admPassword').val();
+
+        $.ajax({
+            url: "../ADS"
+            , type: "post"
+            , data: {
+                "admName": admName
+                , "admPassword": admPassword
+                ,"addIdentity":"administrators"
+
+            }
+            , success: function (res) {
+                switch (res) {
+                    case "success":
+                        alert('添加成功');
+                        break;
+                    case "error":
+                        alert('添加失败，该管理员已存在！');
+                        break;
+                }
+
+            }
+            , error: function (res) {
+
+                alert('添加失败');
+            }
+
+        })
+
+    }
+</script>
+</html>

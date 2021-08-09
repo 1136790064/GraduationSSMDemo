@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>项目申报</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../js/jquery-3.6.0.js"></script>
+    <script src="../layui/layui.js"></script>
+</head>
+<body>
+<form class="layui-form" action="/APS">
+    <!--    <div class="layui-form-item">-->
+    <!--        <label class="layui-form-label">项目编号</label>-->
+    <!--        <div class="layui-input-block">-->
+    <!--            <input type="text" name="number" required lay-verify="required" placeholder="请输入项目编号" autocomplete="off"-->
+    <!--                   class="layui-input">-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <div class="layui-form-item">
+        <label class="layui-form-label" for="entry_name">项目名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="entry_name" id="entry_name" required lay-verify="required" placeholder="请输入项目名称"
+                   autocomplete="off"
+                   class="layui-input">
+
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" for="project_subject">所属学科</label>
+        <div class="layui-input-block">
+            <input type="text" name="project_subject" id="project_subject" required lay-verify="required"
+                   placeholder="请输入所属学科"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" for="applicant_Id">申请人学号</label>
+        <div class="layui-input-block">
+            <input type="text" name="applicant_Id" id="applicant_Id" required lay-verify="required"
+                   placeholder="请输入项目申请人学号"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" for="project_applicant">申&nbsp;请&nbsp;人</label>
+        <div class="layui-input-block">
+            <input type="text" name="project_applicant" id="project_applicant" required lay-verify="required"
+                   placeholder="请输入项目申请人"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" for="college">所在学院</label>
+        <div class="layui-input-block">
+            <input type="text" name="college" id="college" required lay-verify="required" placeholder="请输入所在学院"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" for="teacher_Id">老师工号</label>
+        <div class="layui-input-block">
+            <input type="text" name="teacher_Id" id="teacher_Id" required lay-verify="required" placeholder="请输入指导老师工号"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" for="teacher">指导老师</label>
+        <div class="layui-input-block">
+            <input type="text" name="teacher" id="teacher" required lay-verify="required" placeholder="请输入指导老师"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" for="date">填表日期</label>
+        <div class="layui-input-block">
+            <input type="text" name="date" id="date" required lay-verify="required" placeholder="请输入填表日期：xxxx/xx/xx"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" for="application_funds">申请经费</label>
+        <div class="layui-input-block">
+            <input type="text" name="application_funds" id="application_funds" required lay-verify="required"
+                   placeholder="元"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" for="appropriations">批准经费</label>
+        <div class="layui-input-block">
+            <input type="text" name="appropriations" id="appropriations" required lay-verify="required" placeholder="元"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" for="research_cycle">研究周期</label>
+        <div class="layui-input-block">
+            <input type="text" name="research_cycle" id="research_cycle" required lay-verify="required" placeholder="月"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label" for="brief_introduction">项目简介</label>
+        <div class="layui-input-block">
+            <textarea name="brief_introduction" id="brief_introduction" placeholder="以文字表述的方式，简述项目基本研究内容，不超过500字。"
+                      class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+</body>
+<script>
+    //Demo
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            // layer.msg(JSON.stringify(data.field));
+            //JSON.stringify(data.field)   这是表单中所有的数据
+            // console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
+            // console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+            // console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+            var entryName = data.field.entry_name;
+            var subject = data.field.project_subject;
+            var applicantId = data.field.applicant_Id;
+            alert(applicantId);
+            var projectApplicant = data.field.project_applicant;
+            var college = data.field.college;
+            var teacherId = data.field.teacher_Id;
+            var teacher = data.field.teacher;
+            var date = data.field.date;
+            var applicationFunds = data.field.application_funds;
+            var appropriations = data.field.appropriations;
+            var researchCycle = data.field.research_cycle;
+            var briefIntroduction = data.field.brief_introduction;
+
+            $.ajax({
+                url: "../APS"
+                , type: "post"
+                , data: {
+                    "entryName": entryName
+                    , "subject": subject
+                    , "applicantId": applicantId
+                    , "projectApplicant": projectApplicant
+                    , "college": college
+                    , "teacherId": teacherId
+                    , "teacher": teacher
+                    , "date": date
+                    , "applicationFunds": applicationFunds
+                    , "appropriations": appropriations
+                    , "researchCycle": researchCycle
+                    , "briefIntroduction": briefIntroduction
+                }
+                , success: function (res) {
+                    switch (res) {
+                        case "success":
+                            alert('添加成功!');
+                            break;
+                        case "error":
+                            alert('添加失败！');
+                            break;
+                    }
+
+                }
+                , error: function (res) {
+
+                    alert('添加失败!');
+                }
+            })
+            return false;
+        });
+    });
+</script>
+</html>

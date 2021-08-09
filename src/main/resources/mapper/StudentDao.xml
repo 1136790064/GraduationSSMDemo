@@ -15,8 +15,55 @@
         <result property="email" column="email"/>
     </resultMap>
 
+    <!--插入学生个人信息-->
     <insert id="AddStudent" parameterType="declare.entity.Student">
         insert into student(sno, name, password, sex, college, idCard, major, enrollmentYear, phone, email)
-        values (#{sno}, #{name}, #{password},#{sex},#{college},#{idCard},#{major},#{enrollmentYear},#{phone},#{email})
+        values (#{sno}, #{name}, #{password}, #{sex}, #{college}, #{idCard}, #{major}, #{enrollmentYear}, #{phone},
+                #{email})
     </insert>
+
+    <!--更新学生个人信息-->
+    <update id="UpdateStudent" parameterType="declare.entity.Student">
+        update student
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="college != null">
+                college = #{college},
+            </if>
+            <if test="idCard != null">
+                idCard = #{idCard},
+            </if>
+            <if test="major != null">
+                major = #{major},
+            </if>
+            <if test="enrollmentYear != null">
+                enrollmentYear = #{enrollmentYear},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="email">
+                email = #{email},
+            </if>
+        </set>
+            where sno = #{sno}
+    </update>
+
+    <!--根据学号删除学生信息-->
+    <delete id="DeleteStudentBySno" >
+        delete from student where sno = #{sno}
+    </delete>
+
+    <!--根据学号查询学生信息-->
+    <select id="SelectStudentBySno" resultMap="StudentMap">
+        select * from student where sno = #{sno}
+    </select>
 </mapper>
